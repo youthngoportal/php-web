@@ -68,3 +68,13 @@ $scope.mode = 1;
 
 });
 
+app.controller('dbCtrl', ['$scope', '$http', function($scope, $http) {
+  $http.get("fetch.php")
+  .success(function(data) {
+    $scope.data = data;
+    $scope.mode = 1;
+  })
+ .error(function() {
+    $scope.data = "error in fetching data";
+  });
+}]);

@@ -1,11 +1,13 @@
 <?php
 error_reporting(E_ALL); 
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+
 //ENTER YOUR DATABASE CONNECTION INFO BELOW:
 $hostname="localhost";
 $database="youth";
 $username="root";
 $password="";
+$page_title = "Add - Youth NGO portal";
 
 //DO NOT EDIT BELOW THIS LINE
 $link = mysqli_connect($hostname, $username, $password, $database);
@@ -15,34 +17,44 @@ if (!$link) {
     else{
    //      echo "Connection to MySQL server " .$hostname . " successful!
     //" . PHP_EOL;
-    if(isset($_POST['submitb'])){ //check if form was submitted
-        $input = $_POST['name']; //get input text
-        $input1 = $_POST['ngoid'];
-        $input2 = $_POST['cname'];
-        $input3 = $_POST['area'];
-        $input4 = $_POST['city'];
-        $input5 = $_POST['district'];
-        $input6 = $_POST['mobile'];
-        $input7 = $_POST['email'];
-        $input8 = $_POST['site'];
-        $input9 = $_POST['tags1'];
 
-        $sql="INSERT INTO ngo_detail (id, name, unique_id, contact_name, area, city, district, mobile, email, link, tags, verified) VALUES ('','$input', '$input1','$input2', '$input3', '$input4', '$input5', '$input6', '$input7', '$input8', '$input9','')";
+    //post form data excluding image
+            if(isset($_POST['submitb'])){ //check if form was submitted
+                $input = $_POST['name']; //get input text
+                $input1 = $_POST['ngoid'];
+                $input2 = $_POST['cname'];
+                $input3 = $_POST['area'];
+                $input4 = $_POST['city'];
+                $input5 = $_POST['district'];
+                $input6 = $_POST['mobile'];
+                $input7 = $_POST['email'];
+                $input8 = $_POST['site'];
+                $input9 = $_POST['tags1'];
+                //try4
+                // Checking the file was submitted
+                // check if a file was submitted
+      
 
-        try{
-            mysqli_query($link, $sql);
-          //  echo "new rocrd added";
-        } catch (Exception $e){
-           // echo 'Caught exception: ',  $e->getMessage(), "\n";
+                //oooo
+                $sql="INSERT INTO ngo_detail (id, name, unique_id, contact_name, area, city, district, mobile, email, link, tags, verified) VALUES ('','$input', '$input1','$input2', '$input3', '$input4', '$input5', '$input6', '$input7', '$input8', '$input9','')";
+                
+                try{
+                    mysqli_query($link, $sql);
+                    //move_uploaded_file($picture_tmp, $path);
+                  //  echo "new rocrd added";
+                } catch (Exception $e){
+                   // echo 'Caught exception: ',  $e->getMessage(), "\n";
+                }
+                /*if (mysqli_query($link, $sql)) {
+                    echo "New record created successfully";
+                } else {
+                    echo "Error: " . $sql . "<br>" . mysqli_error($link);
+                } */                       
+                //$message = "Success! You entered: ".$sql;
+            }
+
+
         }
-        /*if (mysqli_query($link, $sql)) {
-            echo "New record created successfully";
-        } else {
-            echo "Error: " . $sql . "<br>" . mysqli_error($link);
-        } */                       
-        //$message = "Success! You entered: ".$sql;
-    }
-}
 
 $db_selected = mysqli_select_db($link, $database);
     if (!$db_selected) {
@@ -54,39 +66,9 @@ $db_selected = mysqli_select_db($link, $database);
 ?>
 <!DOCTYPE html>
 <html lang="en" ng-app="ngoapp">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="youth ngo portal for youth development and youth engagement. connect with ngos. listing of ngo whose primary work is education, poverty, girls education, ">
-    <meta name="author" content="">
-    <link rel="shortcut icon" href="assets/ico/favicon.png">
-
-    <title>NGO List - Youth NGO portal</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="assets/css/bootstrap.css" rel="stylesheet">
-    <link href="assets/css/font-awesome.min.css" rel="stylesheet">
-    <link href="assets/css/bootstrap-select.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="assets/css/main.css" rel="stylesheet">
-
-    <script src="assets/js/libs/angular.min.js"></script>
-    <script src="assets/js/app.js"></script>
-    
-
-
-    <!--  <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.17/angular.min.js"></script>-->
-
-
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-    <![endif]-->
-</head>
+<?php
+require_once('templates/head.php');
+?>
 
 <body>
 
@@ -99,14 +81,14 @@ $db_selected = mysqli_select_db($link, $database);
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html"><span style="color: #F96900;">Youth</span> <span style="color: white;">NGO</span><span style="color: green;"> Portal</span></a>            </div>
+                <a class="navbar-brand" href="index.php"><span style="color: #F96900;">Youth</span> <span style="color: white;">NGO</span><span style="color: green;"> Portal</span></a>            </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="index.html">HOME</a>
+                    <li><a href="index.php">HOME</a>
                     </li>
-                    <li><a href="ngos.html">NGO'S</a>
+                    <li><a href="ngos.php">NGO'S</a>
                     </li>
-                    <li><a href="register.html">Register NGO</a>
+                    <li><a href="register.php">Register NGO</a>
                     <li class="active"><a href="add.php">Add NGO</a></li>
                     <li><a href="shareyourexp/">Share you exp.</a></li>
                     </li>
@@ -227,7 +209,17 @@ $db_selected = mysqli_select_db($link, $database);
                         <span class="help-block">Provide us a link of your ngo website.</span>
                       </div>
                     </div>
-                    
+
+                   <!--  <div class="form-group">
+                        <label class="col-md-2 control-label">Choose a logo</label>
+                        <div class="col-md-10">
+                            <span class="btn btn-default btn-file">
+                                <input name="image" type="file" />
+                            </span>
+                            <span class="help-block">Please upload a logo for your ngo.</span>
+                        </div>
+                    </div>
+                     -->
                     
                     
                     <div class="form-group">
@@ -265,19 +257,9 @@ $db_selected = mysqli_select_db($link, $database);
     </div>
     <!-- container -->
 
-
-	<!-- FOOTER -->
-	<div id="f">
-		<div class="container">
-			<div class="row centered">
-				copyright youth ngo portal - 2015
-                <p><?=date('l, F jS, Y'); ?>.</p>
-				<!-- <a href="#"><i class="fa fa-twitter"></i></a><a href="#"><i class="fa fa-facebook"></i></a><a href="#"><i class="fa fa-dribbble"></i></a> -->
-		
-			</div><!-- row -->
-		</div><!-- container -->
-	</div><!-- Footer -->
-
+    <?php
+    require_once('templates/footer.php');
+    ?>
 
 	<div class="modal fade" id="thankyouModal" tabindex="-1" role="dialog" aria-labelledby="thankyouLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -294,20 +276,8 @@ $db_selected = mysqli_select_db($link, $database);
         </div>
     </div>
 
-
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-    <script src="assets/js/bootstrap.min.js"></script>
-    <script src="assets/js/bootstrap-select.js"></script>
-    <script type="text/javascript">
-               $('.selectpicker').selectpicker({
-                    dropupAuto: false
-                   
-                });
-    </script>
   </body>
-</html>
-<?mysqli_close($link);
+<?
+    mysqli_close($link);
 ?>
+</html>
