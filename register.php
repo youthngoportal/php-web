@@ -19,7 +19,7 @@ require_once('templates/head.php');
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html"><span style="color: #F96900;">Youth</span> <span style="color: white;">NGO</span><span style="color: green;"> Portal</span></a>
+                <a class="navbar-brand" href="index.php"><span style="color: #F96900;">Youth</span> <span style="color: white;">NGO</span><span style="color: green;"> Portal</span></a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
@@ -27,7 +27,7 @@ require_once('templates/head.php');
                     </li>
                     <li><a href="ngos.php">NGO'S</a>
                     </li>
-                    <li class="active"><a href="register.php">Register NGO</a>
+                    <li class="active"><a href="register.php">Registration Process</a>
                     <li><a href="add.php">Add NGO</a></li>
                     <li><a href="shareyourexp/">Share you exp.</a></li>
                     </li>

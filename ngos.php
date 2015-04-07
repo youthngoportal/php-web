@@ -1,4 +1,7 @@
 <?php
+$page_title = "NGO List - Youth NGO portal";
+?>
+<?php
 error_reporting(E_ALL); 
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
@@ -7,36 +10,36 @@ $hostname="localhost";
 $database="youth";
 $username="root";
 $password="";
-$page_title = "NGO List - Youth NGO portal";
 
 //DO NOT EDIT BELOW THIS LINE
 $link = mysqli_connect($hostname, $username, $password, $database);
 if (!$link) {
-   // die('Connection failed: ' . mysql_error());
+        die('Connection failed: ' . mysql_error());
     }
     else{
-   //      echo "Connection to MySQL server " .$hostname . " successful!
-    //" . PHP_EOL;
-
-    //post form data excluding image
-            if(isset($_POST['subcribe'])){ //check if form was submitted
+       // echo "Connection to MySQL server " .$hostname . " successful!" . PHP_EOL;
+            
+            //post form data excluding image
+            if(isset($_POST['submit'])){ //check if form was submitted
                 $input = $_POST['email'];
-                //try4
-                // Checking the file was submitted
-                // check if a file was submitted
+                $input1 = $_POST['tags'];
+                //echo "$input1";
 
-               // $sql1 = "SELECT id from ngo_details WHERE name='{{ngo_details.name}}'";
+                $sql1 = "SELECT id from ngo_detail WHERE name='$input1'";
                 //oooo
-                //echo "$sql1";
-                $sql="INSERT INTO subscribe (sid, id, email) VALUES ('','54', '$input')";
-                
-                try{
-                    mysqli_query($link, $sql);
-                    //mysqli_query($link, $sql1);
-                    //move_uploaded_file($picture_tmp, $path);
-                  //  echo "new rocrd added";
+                $assoc = mysqli_query($link, $sql1);
+                if($row = mysqli_fetch_array($assoc))
+                {
+                    $assocs = $row["id"];
+                }
+                //echo "$assocs";
+                $sql="INSERT INTO subscribe (sid, id, email) VALUES ('','$assocs', '$input')";
+                //echo "$sql";
+                try{    
+                     mysqli_query($link, $sql);
+                    // echo "new rocrd added";
                 } catch (Exception $e){
-                   // echo 'Caught exception: ',  $e->getMessage(), "\n";
+                     //echo 'Caught exception: ',  $e->getMessage(), "\n";
                 }
                 /*if (mysqli_query($link, $sql)) {
                     echo "New record created successfully";
@@ -45,17 +48,15 @@ if (!$link) {
                 } */                       
                 //$message = "Success! You entered: ".$sql;
             }
-
-
         }
 
-$db_selected = mysqli_select_db($link, $database);
-    if (!$db_selected) {
-          die ('Can\'t select database: ' . mysql_error());
-        }
-        else {
-        //    echo 'Database ' . $database . ' successfully selected!';
-    }    
+    $db_selected = mysqli_select_db($link, $database);
+        if (!$db_selected) {
+              die ('Can\'t select database: ' . mysql_error());
+            }
+            else {
+            //    echo 'Database ' . $database . ' successfully selected!';
+        }    
 ?>
 <!DOCTYPE html>
 <html lang="en" ng-app="ngoapp">
@@ -75,14 +76,14 @@ require_once('templates/head.php');
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html"><span style="color: #F96900;">Youth</span> <span style="color: white;">NGO</span><span style="color: green;"> Portal</span></a>            </div>
+                <a class="navbar-brand" href="index.php"><span style="color: #F96900;">Youth</span> <span style="color: white;">NGO</span><span style="color: green;"> Portal</span></a>            </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="index.php">HOME</a>
                     </li>
                     <li class="active"><a href="ngos.php">NGO'S</a>
                     </li>
-                    <li><a href="register.php">Register NGO</a> </li>
+                    <li><a href="register.php">Registration Process</a> </li>
                     <li><a href="add.php">Add NGO</a></li>
                     <li><a href="shareyourexp/">Share you exp.</a></li>
                     
@@ -143,7 +144,7 @@ require_once('templates/head.php');
 
                         <div class="well">
                         	<a href="" data-toggle="modal" data-target="#myModal{{$index}}"><img src="{{ngo_details.images_path}}" class="img-responsive"></a>
-                            <h3 class="cap" ng-hide="mode==1">{{ngo_details.name}}</h3>
+                            <h3 class="cap" id="ngonames" ng-hide="mode==1">{{ngo_details.name}}</h3>
                             <!-- <h4 class="text-muted">{{ngo.information}}</h4> -->
 
                             <p ng-show="mode==3">
@@ -155,7 +156,7 @@ require_once('templates/head.php');
 
                                 <!-- MOODAL MODAL MODAL -->
                                 <div id="myModal{{$index}}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                
+                                 
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header bg-info">
@@ -183,12 +184,13 @@ require_once('templates/head.php');
                                                         <p><b>Main Area of work:</b></p>
                                                         <p>{{ngo_details.tags}}</p>
                                                         <p><i class="fa fa-external-link"></i><b>  Website link:</b></p>
-                                                        <a href="{{ngo_details.link}}">{{ngo_details.link}}</a><br><br>
+                                                        <a href="{{ngo_details.link}}" target="_blank">{{ngo_details.link}}</a><br><br>
                                                         <form class="form-horizontal row-border" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
                                                             <p><i class="fa fa-keyboard-o"></i><b>   Subscribe to latest update:</b></p>
                                                             <input class="form-control" name="email" placeholder="xyz_example@gmail.com" type="text">
+                                                            <input type="hidden" name="tags" value="{{ngo_details.name}}">
                                                             <span class="help-block">Please enter your email address to receive latest updates from <b>{{ngo_details.name}}</b></span>
-                                                            <button type="submit" name="subscribe" class="btn btnsub btn-block btn-primary">SUBSCRIBE</button>
+                                                            <button type="submit" name="submit" class="btn btnsub btn-block btn-primary">SUBSCRIBE</button>
                                                         </form>
                                                     </div>
                                                 </div>
@@ -225,7 +227,7 @@ require_once('templates/head.php');
                             </div>
                             <div class="col-sm-6 text-right">
 				              <div class="hidden-xs">
-				                <a href="{{ngo_details.link}}">{{ngo_details.link}}</a><br>
+				                <a href="{{ngo_details.link}}" target="_blank">{{ngo_details.link}}</a><br>
 				                <h3><span class="label label-primary" >{{ngo_details.email}}</span></h3>
 				              </div>
 				            </div>
