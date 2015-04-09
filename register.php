@@ -27,10 +27,10 @@ require_once('templates/head.php');
                     </li>
                     <li><a href="ngos.php">NGO'S</a>
                     </li>
-                    <li class="active"><a href="register.php">Registration Process</a>
+                    <li class="active"><a href="register.php">Process</a></li>
                     <li><a href="add.php">Add NGO</a></li>
-                    <li><a href="shareyourexp/">Share you exp.</a></li>
-                    </li>
+                    <li><a href="shareyourexp/" target="_blank">Share you exp.</a></li>
+                    <li><a href="login.php">Login</a></li>
                     
                 </ul>
             </div>
@@ -43,7 +43,7 @@ require_once('templates/head.php');
             <div class="row centered">
                 <div class="col-lg-8 col-lg-offset-2">
                     <h4>Registration Process</h4>
-                    <p>A brief guide on NGO registration process in India.</p>
+                    <p>A brief guide on NGO  registration process in India.</p>
                 </div>
             </div>
     </div>
@@ -55,7 +55,7 @@ require_once('templates/head.php');
 						    <li>
 						        <a href="#GroupA">NGO</a>
 						        <ul class="nav nav-stacked">
-						            <li><a href="#GroupASub1">Defination</a></li>
+						            <li><a href="#GroupASub1">Definition</a></li>
 						            <li><a href="#GroupASub2">Size</a></li>
 						            <li><a href="#GroupASub3">Geographic Scope</a></li>
 						            <li><a href="#GroupASub4">Thematic Scope</a></li>
@@ -91,7 +91,7 @@ require_once('templates/head.php');
 		        	<section id="GroupA" class="group">
 					    <h3>What is NGO?</h3>
 					    <div id="GroupASub1" class="subgroup">
-					        <h4>Defination</h4>
+					        <h4>Definition</h4>
 					        <p>
 						    	<i>NGO</i>, or <i>Non-Governmental Organization</i>, is an organization that exists independently from government and is setup by ordinary citizens, foundations, businesses, or private persons. NGO is not a part of government but it is directly controlled and monitored by Government, ngo’s works according to the policies of the Government more specifically for development and welfare of society, areas and communities as Governments use to work.
 						    	<br><br>
@@ -162,7 +162,7 @@ require_once('templates/head.php');
 					    </div>
 					</section>
 					<section id="GroupC" class="group">
-					    <h3>Registration Process</h3>
+					    <h3>Process</h3>
 					    <p>
 					    	In India NGOs can be registered as trusts, societies, or a private limited nonprofit company, under section-25 companies. 
 					    </p>

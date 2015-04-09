@@ -23,9 +23,10 @@ require_once('templates/head.php');
           <ul class="nav navbar-nav navbar-right">
             <li class="active"><a href="index.php">HOME</a></li>
             <li><a href="ngos.php">NGO'S</a></li>
-            <li><a href="register.php">Registration Process</a></li>
+            <li><a href="register.php">Process</a></li>
             <li><a href="add.php">Add NGO</a></li>
-            <li><a href="shareyourexp/">Share you exp.</a></li>
+            <li><a href="shareyourexp/" target="_blank">Share you exp.</a></li>
+            <li><a href="login.php">Login</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>

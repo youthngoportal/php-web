@@ -8,6 +8,7 @@ $database="youth";
 $username="root";
 $password="";
 $page_title = "Add - Youth NGO portal";
+$message=" ";
 
 //DO NOT EDIT BELOW THIS LINE
 $link = mysqli_connect($hostname, $username, $password, $database);
@@ -18,7 +19,7 @@ if (!$link) {
    //      echo "Connection to MySQL server " .$hostname . " successful!
     //" . PHP_EOL;
 
-    //post form data excluding image
+            //post form data excluding image
             if(isset($_POST['submitb'])){ //check if form was submitted
                 $input = $_POST['name']; //get input text
                 $input1 = $_POST['ngoid'];
@@ -30,6 +31,10 @@ if (!$link) {
                 $input7 = $_POST['email'];
                 $input8 = $_POST['site'];
                 $input9 = $_POST['tags1'];
+
+                if (!filter_var($input7, FILTER_VALIDATE_EMAIL)) {
+                  $message = "Invalid email format";
+                }
                 //try4
                 // Checking the file was submitted
                 // check if a file was submitted
@@ -71,7 +76,6 @@ require_once('templates/head.php');
 ?>
 
 <body>
-
     <!-- Fixed navbar -->
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
@@ -88,11 +92,10 @@ require_once('templates/head.php');
                     </li>
                     <li><a href="ngos.php">NGO'S</a>
                     </li>
-                    <li><a href="register.php">Registration Process</a>
+                    <li><a href="register.php">Process</a></li>
                     <li class="active"><a href="add.php">Add NGO</a></li>
-                    <li><a href="shareyourexp/">Share you exp.</a></li>
-                    </li>
-                    
+                    <li><a href="shareyourexp/" target="_blank">Share you exp.</a></li>
+                    <li><a href="login.php">Login</a></li>
                 </ul>
             </div>
             <!--/.nav-collapse -->
@@ -124,6 +127,7 @@ require_once('templates/head.php');
                   <i class="icon-calendar"></i>
                   <h3 class="panel-title">Submit your NGO</h3>
                   <p class="text-muted panel-title">NOTE:   This information will be verified before publishing on youthngoportal.com</p>
+                  <div class="message text-center"><?php if($message!="") { echo $message; } ?></div>                
                 </div>
                 
                 
@@ -132,7 +136,7 @@ require_once('templates/head.php');
                     <div class="form-group">
                       <label class="col-md-2 control-label">NGO Name</label>
                       <div class="col-md-10">
-                        <input name="name" class="form-control" placeholder="Type your ngo name" type="text">
+                        <input name="name" class="form-control" placeholder="Type your ngo name" type="text" required>
                         <span class="help-block">Type the name of orgranization</span>
                       </div>
                     </div>
@@ -140,7 +144,7 @@ require_once('templates/head.php');
                     <div class="form-group">
                       <label class="col-md-2 control-label">Unique Id of NGO</label>
                       <div class="col-md-10">
-                        <input name="ngoid" class="form-control" type="text">
+                        <input name="ngoid" class="form-control" type="text" required>
                         <span class="help-block">Please provide the unique id of your ngo.<br>Example: GJ/2014/0077577</span>
                       </div>
                     </div>
@@ -148,7 +152,7 @@ require_once('templates/head.php');
                     <div class="form-group">
                       <label class="col-md-2 control-label">Contact person</label>
                       <div class="col-md-10">
-                        <input class="form-control" name="cname" type="text">
+                        <input class="form-control" name="cname" type="text" required>
                         <span class="help-block">Please provide the name of authorised person whom we can contact.</span>
                       </div>
                     </div>
@@ -158,11 +162,11 @@ require_once('templates/head.php');
                       <div class="col-md-10">
                         <div class="row">
                           <div class="col-xs-5">
-                            <input class="form-control" name="area" placeholder="Area" type="text">
+                            <input class="form-control" name="area" placeholder="Area" type="text" required>
                             <span class="help-block">Enter local area</span>
                           </div>
                           <div class="col-xs-3">
-                            <input class="form-control" name="city" placeholder="Town/City" type="text">     
+                            <input class="form-control" name="city" placeholder="Town/City" type="text" required>     
                             <span class="help-block">Enter city or town name</span>
                           </div>
                           <div class="col-xs-4">                          
@@ -191,11 +195,11 @@ require_once('templates/head.php');
                       <div class="col-md-10">
                         <div class="row">
                           <div class="col-xs-6">
-                            <input class="form-control" name="mobile" value="+91" type="text">
+                            <input class="form-control" name="mobile" value="+91" type="text" required>
                             <span class="help-block">Mobile number</span>
                           </div>
                           <div class="col-xs-6">
-                            <input class="form-control" name="email" placeholder="xyz_example@gmail.com" type="text">
+                            <input class="form-control" name="email" placeholder="xyz_example@gmail.com" type="text" required>
                             <span class="help-block">Email address</span>
                           </div>                         
                         </div>
@@ -205,7 +209,7 @@ require_once('templates/head.php');
                     <div class="form-group">
                       <label class="col-md-2 control-label">Website link</label>
                       <div class="col-md-10">
-                        <input value="http://" name="site" class="form-control" type="text">
+                        <input name="site" class="form-control" type="text">
                         <span class="help-block">Provide us a link of your ngo website.</span>
                       </div>
                     </div>

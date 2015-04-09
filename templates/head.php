@@ -12,6 +12,7 @@
     <link href="assets/css/bootstrap.css" rel="stylesheet">
     <link href="assets/css/font-awesome.min.css" rel="stylesheet">
     <link href="assets/css/bootstrap-select.css" rel="stylesheet">
+    <link href="assets/css/multiple-emails.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="assets/css/main.css" rel="stylesheet">
