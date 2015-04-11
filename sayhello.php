@@ -88,7 +88,7 @@ if (!$link) {
                      //echo 'Caught exception: ',  $e->getMessage(), "\n";
                 }
 
-                //UPDATE DATA
+                //UPDATE DATA//////////////////////////////////////////
                 if(isset($_POST['update'])){ //check if form was submitted
                     //$input = $_POST['name']; //get input text
                     $input2 = $_POST['cname'];
@@ -126,6 +126,53 @@ if (!$link) {
                     } */                       
                     //$message = "Success! You entered: ".$sql;
                 }
+                //second module
+                //UPDATE DATA//////////////////////////////////////////
+                if(isset($_POST['sendform'])){ //check if form was submitted
+                    //$input = $_POST['name']; //get input text
+                    $inputmes = $_POST['Message'];
+                    $inputemail = $_POST['email'];
+                    $inputsub = $_POST['subject'];
+
+                    if (!filter_var($inputemail, FILTER_VALIDATE_EMAIL)) {
+                      $message = "Invalid email format";
+                    }
+                    echo "$inputemail";
+
+                    //include("send-msg.php");
+                      /*$to       =   "youthngoportal@gmail.com";
+                      $subject  =   $inputsub;
+                      $emessage  =   $inputmes;
+                      $names     =   "Shahid Shaikh";
+                      $mailsend =   mail($to,$subject,$message,$names);
+                      if($mailsend==1){
+                        echo '<h2>email sent.</h2>';
+                      }
+                      else{
+                        echo "$emessage";
+                        echo '<h2>There are some issue.</h2>';
+                      }*/
+                    //oooo
+                    //$sql="INSERT INTO ngo_detail (id, name, unique_id, contact_name, area, city, district, mobile, email, link, tags, verified) VALUES ('','$', '$','$input2', '$input3', '$input4', '$input5', '$input6', '$input7', '$input8', '$input9','')";
+
+                    //$sqlupd="UPDATE ngo_detail SET contact_name='$input2', area='$input3', city='$input4', district='$input5', mobile='$input6', email='$input7', link='$input8' WHERE id='$x'";
+                    
+                    try{
+                        //mysqli_query($link, $sqlupd);
+                        //move_uploaded_file($picture_tmp, $path);
+                      //  echo "new rocrd added";
+                    } catch (Exception $e){
+                       // echo 'Caught exception: ',  $e->getMessage(), "\n";
+                    }
+                    /*if (mysqli_query($link, $sql)) {
+                        echo "New record created successfully";
+                    } else {
+                        echo "Error: " . $sql . "<br>" . mysqli_error($link);
+                    } */                       
+                    //$message = "Success! You entered: ".$sql;
+                }
+                                   
+
                 /*if (mysqli_query($link, $sql)) {
                     echo "New record created successfully";
                 } else {
@@ -217,18 +264,26 @@ require_once('templates/head.php');
             <div class="col-md-6 emailblock">
                 <h2>Send an email</h2>
                 <div class='form-group'>
-                        <h4 for='example_email'>TO</h4>
-                        <input type='text' id='example_email' name='example_email' class='form-control' value='[<?php echo '"'.implode('","', $ids).'"';?>]' autofocus>
+
+                    <?php
+                    // Somewhere later on in the page, but above the form, show a success message if the $submitted variable has been set to true.
+                    ?>
+                    <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>" accept-charset="UTF-8" style="display:inline">
+                        <div class="message"><?php if($message!="") { echo $message; } ?></div>
+                        <h4 for='email'>TO</h4>
+                        <input type='text' id='email' name='email' class='form-control' value='[<?php echo '"'.implode('","', $ids).'"';?>]' autofocus>
                         <span class="help-block">Above emails are your pre-selected subscriber/s. <b>You can also add more emails.</b></span>
-                        <h4 for='example_email'>Subject</h4>
+                        <h4 for='email'>Subject</h4>
                         <input type='text' id='subject' name='subject' class='form-control'>
                         <span class="help-block">Type your subject.</span>
-                        <h4 for='example_email'>Message</h4>
+                        <h4 for='email'>Message</h4>
                         <textarea type='text' id='Message' name='Message' class='form-control' rows='3'></textarea>
                         <span class="help-block">Type the message.</span>
-                        <button name="submit" class="btn btn-sm btn-primary bts" type="submit">
-                            SEND</button>
-                        
+                        <input type="hidden" id='Namen' name="Namen" value="<?php echo "$name";?>">
+                        <input type="submit" name="sendform" value="SEND" id="submitBtn" class="btn btn-sm btn-primary bts" />
+                        <!-- <button name="submit" data-toggle="modal" data-target="#confirm-submit" class="btn btn-sm btn-primary bts" type="submit">
+                            SEND</button> -->
+                    </form>    
                     <!-- <div class='col-sm-offset-2 col-sm-4'>
                         <h4>Current email addresses</h4>
                         <pre id='current_emails'></pre>
@@ -243,6 +298,28 @@ require_once('templates/head.php');
     <?php
     require_once('templates/footer.php');
     ?>
+
+    
+    <div class="modal fade" id="confirm-submit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+            <a href="#" data-dismiss="modal" aria-hidden="true" class="close">×</a>
+             <h3 class="modal-title">Are you sure</h3>
+        </div>
+        <div class="modal-body">
+             <p>Do you want to send the mail?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" id="btnYes" name="yes" class="btn btn-success">Yes</button>
+          <button name="no" data-dismiss="modal" aria-hidden="true" class="btn btn-danger">No</button>
+          
+        </div>
+      </div>
+    </div>
+</div>
+
+
 
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="thankyouLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -330,7 +407,7 @@ require_once('templates/head.php');
                         <label class="col-md-2 control-label"></label>
                         <div class="col-md-10 ">
                             <button type="submit" name="update" class="btn btn-success">UPDATE</button>
-                            <button type="dismiss" name="cancel" class="btn btn-danger">CANCEL</button>
+                            <button data-dismiss="modal" name="cancel" class="btn btn-danger">CANCEL</button>
                         </div>                 
                     </div>
                   </form>

@@ -23,11 +23,27 @@
     </script>
     <script>
 	$(function() {
-		$('#current_emails').text($('#example_email').val());
-		$('#example_email').multiple_emails();
-		$('#example_email').change( function(){
+		$('#current_emails').text($('#email').val());
+		$('#email').multiple_emails();
+		$('#email').change( function(){
 			$('#current_emails').text($(this).val());
 		});
 		
 	});
+	</script>
+	<script>
+	  $('#confirm-submit').on('show.bs.modal', function (e) {
+	      $message = $(e.relatedTarget).attr('data-message');
+	      $(this).find('.modal-body p').text($message);
+	      $title = $(e.relatedTarget).attr('data-title');
+	      $(this).find('.modal-title').text($title);
+
+	      // Pass form reference to modal for submission on yes/ok
+	      var form = $(e.relatedTarget).closest('form');
+	      $(this).find('.modal-footer #btnYes').data('form', form);
+	  });
+
+	  $('#confirm-submit').find('.modal-footer #btnYes').on('click', function(){
+	      $(this).data('form').submit();
+	  });
 	</script>
